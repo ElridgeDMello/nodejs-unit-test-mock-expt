@@ -1,11 +1,13 @@
 var proxyquire =  require('proxyquire')
     , assert     =  require('assert')
-    , pathStub   =  { };
+    , pathStub   =  { }
+    , myModuleStub = { };
 
 // when no overrides are specified, path.extname behaves normally
-var foo = proxyquire('../src/foo', { 'path': pathStub });
+var foo = proxyquire('../src/foo', { 'path': pathStub, './myFsModule': myModuleStub });
 //assert.equal(foo.extnameAllCaps('file.txt'), '.TXT');// override path.extname
 pathStub.extname = function (file) { return 'Exterminate, exterminate the .TXT';};
+myModuleStub.bar = function (count) {return count + ' baz'};
 
 
 describe('the foo module', function() {
@@ -25,6 +27,12 @@ describe('the foo module', function() {
     describe('the basenameAllCaps method', function() {
         it('returns the default basename value, capitalized', function() {
             expect(foo.basenameAllCaps('/a/b/file.txt')).toEqual('FILE.TXT');
+        });
+    });
+
+    describe('the countBars method', function() {
+        it('defaults to the number passed as arg', function() {
+            expect(foo.countBars(29)).toEqual('29 baz');    // overrides true implementation '29 bars'
         });
     });
 });

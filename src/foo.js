@@ -8,3 +8,7 @@ module.exports.extnameAllCaps = function (file) {
 module.exports.basenameAllCaps = function (file) {
     return path.basename(file).toUpperCase();
 };
+
+module.exports.countBars = function(count) {
+    return myFsModule.bar(count);
+};
