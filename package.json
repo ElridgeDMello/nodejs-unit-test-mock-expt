@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "devDependencies": {
-    "jasmine-node": "1.14.x"
+    "jasmine-node": "1.14.x",
+    "proxyquire": "1.7.x"
   }
 }
